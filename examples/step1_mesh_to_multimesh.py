@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Example wrapper for step1: mesh-to-multimesh."""
+
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run step1 / mesh-to-multimesh")
+    parser.add_argument("--source", required=True)
+    parser.add_argument("--dest", required=True)
+    parser.add_argument("--name", default=None)
+    parser.add_argument("--segmentation-method", default=None)
+    parser.add_argument("--api-key", default=None)
+    parser.add_argument("--nim-profile", default=None)
+    parser.add_argument("--nim-base-url", default=None)
+    parser.add_argument("--nim-auth-mode", default=None)
+    parser.add_argument("--verbose", action="store_true")
+    args = parser.parse_args()
+
+    repo_root = Path(__file__).resolve().parent.parent
+    command = [
+        sys.executable,
+        str(repo_root / "main.py"),
+        "step1",
+        "--source", args.source,
+        "--dest", args.dest,
+    ]
+    if args.name:
+        command.extend(["--name", args.name])
+    if args.segmentation_method:
+        command.extend(["--segmentation-method", args.segmentation_method])
+    if args.api_key:
+        command.extend(["--api-key", args.api_key])
+    if args.nim_profile:
+        command.extend(["--nim-profile", args.nim_profile])
+    if args.nim_base_url:
+        command.extend(["--nim-base-url", args.nim_base_url])
+    if args.nim_auth_mode:
+        command.extend(["--nim-auth-mode", args.nim_auth_mode])
+    if args.verbose:
+        command.append("--verbose")
+
+    return subprocess.run(command, cwd=str(repo_root), check=False).returncode
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
