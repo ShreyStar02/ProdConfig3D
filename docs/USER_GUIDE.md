@@ -231,8 +231,8 @@ PRODCONFIG_NIM__API_KEY=your_key_here
 ### "SAM checkpoint not found"
 Download SAM model to `models/` folder:
 ```bash
-# Download sam2.1_b.pt from:
-# https://github.com/ultralytics/assets/releases
+# Download sam3.pt from:
+# https://huggingface.co/facebook/sam3
 ```
 
 ### "No module named 'clip'"
